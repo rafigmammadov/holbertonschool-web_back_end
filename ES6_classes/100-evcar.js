@@ -10,3 +10,5 @@ class EVCar extends Car {
     return Car;
   }
 }
+
+export default EVCar;
