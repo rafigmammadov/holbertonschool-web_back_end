@@ -6,7 +6,9 @@ class EVCar extends Car {
     this._range = range;
   }
 
-  cloneCar () {
-    return new Car();
+  cloneCar() {
+    const Species = super.constructor[Symbol.species];
+
+    return new Species();
   }
 }
