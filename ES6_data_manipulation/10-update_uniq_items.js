@@ -1,11 +1,10 @@
 export default function updateUniqueItems(map) {
   if (!(map instanceof Map)) {
-    throw new Error('More map data structure');
+    throw new Error('Cannot process');
   }
-
-  map.forEach((key, value) => {
+  for (const [key, value] of map.entries()) {
     if (value === 1) {
       map.set(key, 100);
     }
-  });
+  }
 }
