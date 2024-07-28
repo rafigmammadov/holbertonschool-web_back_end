@@ -1,0 +1,1 @@
+README.md for Javascript DOM manipulation directory
