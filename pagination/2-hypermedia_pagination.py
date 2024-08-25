@@ -68,8 +68,8 @@ class Server:
 
         dataset: List = self.dataset()
         total_page: int = math.ceil(len(dataset) / page_size) if dataset else 0
-        next_page = (page + 1) if (page + 1) else None
-        previous_page = (page - 1) if (page - 1) else None
+        next_page = (page + 1) if (page + 1) <= total_page else None
+        previous_page = (page - 1) if (page - 1) >= 1 else None
 
         dictionary: Dict[str, Any] = {
             'page_size': page_size,
