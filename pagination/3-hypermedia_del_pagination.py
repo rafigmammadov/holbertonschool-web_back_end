@@ -46,26 +46,25 @@ class Server:
         from dataset when changing page.
         """
         indexed_data = self.indexed_dataset()
-        key_list = list(indexed_data.keys())
+        keys_list = list(indexed_data.keys())
 
-        assert index < len(key_list)
-        assert index + page_size <= len(key_list)
+        if index is None:
+            index = 0
 
-        if index not in indexed_data:
-            start_key = key_list[index]
-        else:
-            start_key = index
+        assert 0 <= index < len(keys_list)
 
-        paginated_data = []
-        for i in range(index, index + page_size):
-            key = key_list[i]
-            paginated_data.append(indexed_data[key])
+        end_index = min(index + page_size, len(keys_list))
 
-        next_index = index + page_size
-        if next_index < len(key_list):
-            next_index = key_list[next_index]
-        else:
-            next_index = None
+        paginated_data = [
+            indexed_data[keys_list[i]]
+            for i in range(index, end_index)
+        ]
+
+        next_index = (
+            keys_list[end_index]
+            if end_index < len(keys_list)
+            else None
+        )
 
         return {
             'index': index,
