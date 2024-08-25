@@ -45,30 +45,27 @@ class Server:
         are removed from the dataset, the user does not miss items
         from dataset when changing page.
         """
-        indexed_data = self.indexed_dataset()
-        keys_list = list(indexed_data.keys())
+        dataset = self.dataset()
+        total_pages = math.ceil(len(dataset) / page_size)
 
         if index is None:
             index = 0
 
-        assert 0 <= index < len(keys_list)
+        assert 0 <= index < len(dataset)
 
-        end_index = min(index + page_size, len(keys_list))
+        start_index = index
+        end_index = min(index + page_size, len(dataset))
+        data = dataset[start_index:end_index]
 
-        paginated_data = [
-            indexed_data[keys_list[i]]
-            for i in range(index, end_index)
-        ]
-
-        next_index = (
-            keys_list[end_index]
-            if end_index < len(keys_list)
-            else None
-        )
+        if end_index == len(dataset):
+            next_index = None
+        else:
+            next_index = end_index
 
         return {
-            'index': index,
-            'next_index': next_index,
-            'page_size': len(paginated_data),
-            'data': paginated_data
+            "index": start_index,
+            "next_index": next_index,
+            "page_size": page_size,
+            "data": data,
+            "total_pages": total_pages,
         }
