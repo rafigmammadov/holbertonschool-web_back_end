@@ -1,0 +1,1 @@
+README.md for NoSQL project directory
