@@ -6,7 +6,4 @@ def list_all(mongo_collection):
     """mongo_collection will be the pymongo collection object
        Return an empty list if no document in the collection
     """
-    documents = mongo_collection.find()
-    if documents.count() == 0:
-        return []
-    return list(documents)
+    return list(mongo_collection.find())
